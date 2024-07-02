@@ -22,16 +22,12 @@ const contactSchema = new Schema({
         enum: ["work", "home", "personal"],
         required: true,
         default: "personal"
-    } ,
+    } 
     
-    createdAt: {
-        type: Date,
-        timestamps: true
-    },
-    updatedAt: {
-        type: Date,
-        timestamps: true
-    }
+
+}, {
+    versionKey: false,
+    timestamps:true
 })
 const Contact =model("contact", contactSchema)
 export default Contact
