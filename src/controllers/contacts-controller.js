@@ -56,9 +56,5 @@ export const deleteContactController = async (req, res) => {
      if (!data) {
        throw createHttpError(404, `contact with id ${id} not found`)
      }
-    res.json({
-        status: 200,
-        message: "Successfully delete",
-        data: data,
-    })
+    res.status(204).send()
  }
