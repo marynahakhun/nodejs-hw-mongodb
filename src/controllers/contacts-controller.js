@@ -5,7 +5,6 @@ import parseFavoriteContact from "../utils/parsefavoriteContact.js"
   import { contactFieldList } from "../constant/index.js"
 import { addContact, deleteContact, getContactById, getContacts, upsertContact } from "../sevices/contacts.js"
 export const getAllContactsController = async (req, res) => {
-    console.log(req.query)
     const {sortBy, sortOrder} = parseSortParams(req.query, contactFieldList)
     const { page, perPage } = parsePaginationParams(req.query);
     const filter = parseFavoriteContact(req.query)

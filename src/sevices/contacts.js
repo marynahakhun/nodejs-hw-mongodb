@@ -4,7 +4,6 @@ export const getContacts = async ({ filter = {}, page = 1, perPage = 10, sortBy 
         const skip = (page - 1) * perPage;
         const databaseQuery = Contact.find();
 
-        // Застосування фільтрів
         if (filter.type) {
             databaseQuery.where("contactType").equals(filter.type);
         }
@@ -12,16 +11,12 @@ export const getContacts = async ({ filter = {}, page = 1, perPage = 10, sortBy 
             databaseQuery.where("isFavourite").equals(filter.isFavourite);
         }
 
-        // Отримання відфільтрованих та відсортованих елементів
         const items = await databaseQuery.skip(skip).limit(perPage).sort({ [sortBy]: sortOrder });
 
-        // Підрахунок загальної кількості елементів з урахуванням фільтрів
         const totalItems = await Contact.find().merge(databaseQuery).countDocuments();
 
-        // Визначення кількості сторінок
         const totalPages = Math.ceil(totalItems / perPage);
 
-        // Перевірка наявності наступної та попередньої сторінок
         const hasNextPage = page < totalPages;
         const hasPreviousPage = page > 1;
 
