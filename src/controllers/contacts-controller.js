@@ -1,7 +1,7 @@
 import createHttpError from "http-errors"
 import parsePaginationParams from "../utils/parsePaginatilonParams.js"
 import parseSortParams from "../utils/parseSortparams.js"
-import parseFavoriteContact from "../utils/parseFavoriteContact.js"
+import parseFavoriteContact from "../utils/parseFavoriteContact.js";
   import { contactFieldList } from "../constant/index.js"
 import { addContact, deleteContact, getContactById, getContacts, upsertContact } from "../sevices/contacts.js"
 export const getAllContactsController = async (req, res) => {

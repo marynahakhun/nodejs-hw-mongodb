@@ -13,7 +13,7 @@ export const getContacts = async ({ filter = {}, page = 1, perPage = 10, sortBy 
 
         const items = await databaseQuery.skip(skip).limit(perPage).sort({ [sortBy]: sortOrder });
 
-        const totalItems = await Contact.find().merge(databaseQuery).countDocuments();
+        const totalItems = await Contact.find().countDocuments();
 
         const totalPages = Math.ceil(totalItems / perPage);
 
