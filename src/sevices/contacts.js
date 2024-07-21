@@ -3,7 +3,9 @@ export const getContacts = async ({ filter = {}, page = 1, perPage = 10, sortBy 
     try {
         const skip = (page - 1) * perPage;
         const databaseQuery = Contact.find();
-
+    if (filter.userId) {
+            databaseQuery.where("userId").equals(filter.userId);
+        }
         if (filter.type) {
             databaseQuery.where("contactType").equals(filter.type);
         }
@@ -34,7 +36,7 @@ export const getContacts = async ({ filter = {}, page = 1, perPage = 10, sortBy 
         throw error;
     }
 }
-export const getContactById = id => Contact.findById(id);
+export const getContactByFilter = filter => Contact.findOne(filter);
 export const addContact = data => Contact.create(data);
 export const upsertContact = async (filter, data, options = {}) => {
     const result = await Contact.findOneAndUpdate(filter, data,
