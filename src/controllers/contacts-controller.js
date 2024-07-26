@@ -2,8 +2,12 @@ import createHttpError from "http-errors"
 import parsePaginationParams from "../utils/parsePaginatilonParams.js"
 import parseSortParams from "../utils/parseSortparams.js"
 import parseFavoriteContact from "../utils/parseFavoriteContact.js";
-  import { contactFieldList } from "../constant/index.js"
+import { contactFieldList } from "../constant/index.js"
+import saveFileToCloudinary from '../utils/saveFileToCloudinary.js'
+import saveFileToPublicDir from "../utils/saveFileToPublicDir.js";
+  import env from "../utils/env.js";
 import { addContact, deleteContact, getContactByFilter, getContacts, upsertContact } from "../sevices/contacts.js"
+const enable_cloudinary = env("ENABLE_CLOUDINARY");
 
 export const getAllContactsController = async (req, res) => {
     const { id } = req.params;
@@ -50,7 +54,17 @@ export const getContactsByIdController =async (req, res, next) => {
 export const addContactController = async (req, res) => {
     
     const { _id: userId } = req.user
-    const data = await addContact({...req.body, userId});
+    console.log(req.file)
+    let photo = "";
+    if(req.file) {
+        if(enable_cloudinary === "true") {
+            photo = await saveFileToCloudinary(req.file, "photos");
+        }
+        else {
+            photo = await saveFileToPublicDir(req.file, "photos");
+        }
+    }
+    const data = await addContact({...req.body, userId, photo});
     res.status(201).json({
         status: 201,
         message: "Successfully created a contact!",
@@ -60,9 +74,21 @@ export const addContactController = async (req, res) => {
 }
 export const updateContactController = async (req, res) => {
     const { id } = req.params;
-        const { _id: userId } = req.user;
+    const { _id: userId } = req.user;
+    let photo = "";
+     if (req.file) {
+        if (enable_cloudinary === "true") {
+            photo = await saveFileToCloudinary(req.file, "photos");
+        } else {
+            photo = await saveFileToPublicDir(req.file, "photos");
+        }
+     }
+     const updatedData = { ...req.body, userId };
+    if (photo) {
+        updatedData.photo = photo;
+    }
 
-    const result = await upsertContact({ _id: id, userId }, req.body);
+    const result = await upsertContact({ _id: id, userId }, updatedData);
     if (!result) {
        throw createHttpError(404, `contact with id ${id} not found`)
    }

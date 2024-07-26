@@ -3,6 +3,7 @@ import cors from "cors"
 import pino from "pino-http"
 import cookieParser from "cookie-parser"
 import dotenv from "dotenv"  
+import {PUBLIC_DIR} from './constant/index.js'
 import env from "../src/utils/env.js"
 import notFoundHandler from "./midldlewares/notFoundHandler.js"
 import contactsRouter from "./routers/contacts-router.js"
@@ -23,6 +24,7 @@ const setupServer = () => {
 
     app.use(express.json()); 
     app.use(cookieParser());
+    app.use(express.static(PUBLIC_DIR))
    
     app.use("/contacts", contactsRouter);
     app.use("/auth", authRouter);
