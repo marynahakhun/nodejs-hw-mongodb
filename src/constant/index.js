@@ -25,3 +25,4 @@ export const SMTP = {
 export const TEMPLATES_DIR = path.join(process.cwd(), 'src', 'templates');
 export const PUBLIC_POSTERS_DIR = path.resolve("src", "public", "photos");
 export const PUBLIC_DIR = path.resolve("src", "public");
+export const SWAGGER_PATH = path.join(process.cwd(), 'docs', 'swagger.json');
