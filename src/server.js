@@ -9,6 +9,7 @@ import notFoundHandler from "./midldlewares/notFoundHandler.js"
 import contactsRouter from "./routers/contacts-router.js"
 import authRouter from "./routers/auth-router.js"
 import errorHandler from "./midldlewares/errorHandler.js"
+import { swaggerDocs } from "./midldlewares/swaggerDocs.js"
 const app = express()
 
 dotenv.config()
@@ -24,7 +25,9 @@ const setupServer = () => {
 
     app.use(express.json()); 
     app.use(cookieParser());
-    app.use(express.static(PUBLIC_DIR))
+ 
+   app.use(express.static(PUBLIC_DIR));
+  app.use('/api-docs', swaggerDocs());
    
     app.use("/contacts", contactsRouter);
     app.use("/auth", authRouter);
