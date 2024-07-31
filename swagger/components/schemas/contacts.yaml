@@ -1,12 +1,9 @@
+
 type: object
 required:
   - _id
   - name
   - phoneNumber
-  - email
-  - isFavourite
-  - contactType
-  - photo
 properties:
   _id:
     description: "Contact's id"
@@ -15,24 +12,25 @@ properties:
   name:
     description: "Contact's name"
     type: string
-    example: 'John Doe'
+    example: 'Yurii Kachan'
   phoneNumber:
     description: "Contact's phoneNumber"
     type: string
-    example: '+380990000000'
+    example: 068 000 00
   email:
     description: "Contact's email"
     type: string
-    example: '777bomber@gmail.com'
+    example: test@gmail.com
   isFavourite:
-    description: "Contact's isFavourite"
+    description: 'Is the contact favorite or no'
     type: boolean
-    example: true
+    example: false
   contactType:
-    description: "Contact's contactType"
+    description: "Contact's type"
     type: string
     enum: ['work', 'home', 'personal']
+    example: home
   photo:
-    description: "Link to student's photo"
+    description: 'Photo'
     type: string
-    example: https://res.cloudinary.com/uqwgdu/image/upload/image.png
+    example: https://res.cloudinary.com/uqwgdu/image/upload/test.png

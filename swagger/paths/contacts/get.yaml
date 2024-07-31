@@ -2,7 +2,7 @@ tags:
   - Contacts
 summary: Get list of contacts
 operationId: getContacts
-description: Get list of contacts with this endpoint
+description: 'Get list of contacts with this endpoint'
 security:
   - bearerAuth: []
 parameters:
@@ -15,19 +15,19 @@ parameters:
     name: perPage
     schema:
       type: integer
-    example: 10
+      example: 10
   - in: query
     name: sortBy
     schema:
       type: string
-    example: name
-    description: All contact fields can be mentioned. Default value - _id
+      example: 'name'
+    description: "All contact's fields can be mentioned. Default value - _id"
   - in: query
     name: sortOrder
     schema:
       type: string
       enum: ['asc', 'desc']
-    example: asc
+      example: 'asc'
 responses:
   '200':
     description: Successfully found contacts!
@@ -54,8 +54,8 @@ responses:
                 - perPage
                 - totalItems
                 - totalPages
+                - hasPrevPage
                 - hasNextPage
-                - hasPreviousPage
               properties:
                 data:
                   type: array
@@ -73,11 +73,11 @@ responses:
                 totalPages:
                   type: number
                   example: 4
+                hasPrevPage:
+                  type: boolean
+                  example: true
                 hasNextPage:
                   type: boolean
                   example: false
-                hasPreviousPage:
-                  type: boolean
-                  example: true
   '401':
-    $ref: ../../components/responses/404.yaml
+    $ref: '../../components/responses/401.yaml'

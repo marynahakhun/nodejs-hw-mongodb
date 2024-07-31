@@ -54,7 +54,6 @@ export const getContactsByIdController =async (req, res, next) => {
 export const addContactController = async (req, res) => {
     
     const { _id: userId } = req.user
-    console.log(req.file)
     let photo = "";
     if(req.file) {
         if(enable_cloudinary === "true") {
